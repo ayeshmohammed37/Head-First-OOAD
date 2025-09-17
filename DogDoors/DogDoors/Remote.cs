@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+
 
 namespace DogDoors
 {
     public class Remote
     {
         DogDoor door;
+
 
         public Remote(DogDoor door)
         {
@@ -26,6 +25,16 @@ namespace DogDoors
             else
             {
                 door.Open();
+                Timer timer = null;
+                timer = new Timer(_ =>
+                {
+                    door.Close();
+                    timer.Dispose();
+                }, null, 5000, Timeout.Infinite);
+
+                
+
+
             }
         }
     }
